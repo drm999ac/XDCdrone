@@ -1,0 +1,47 @@
+
+
+/*
+  ************************************************
+distance of drone :250
+control block : tms320f28379 lanchpad
+(Remember to comment/uncomment the MACRO in task.h)
+  ************************************************
+*/
+
+
+
+Information:
+
+
+2019.5.20
+version 3.0.0
+finished function : 
+	fly stablely on a point use pid parameter version 3.0.0.
+pid ver : 
+	3.0.0
+
+
+2019.5.22
+ver 3.0.1
+finished function : 
+	fly along a black line.
+pid ver : 
+	3.0.0  key para: height 7.15 0.001 0.001
+	
+2019.5.23
+ver 3.0.2
+diary:fix the bug of blackline program stop-question.
+finished function :
+	turn a angle when meet a corner.
+	pid ver :
+	3.0.1
+	
+2019.6.2
+ver 3.0.4
+diary: it can fix the err of angle.
+finished function:
+	turn a angle when meet a corner.
+	pid ver: 3.0.3
+	
+	
+	
