@@ -137,8 +137,8 @@ void sendUserData(void)
 
     UserDataToPC[2]=0X24;
 
-    FloatToUnsignedchar(3,RT_Info.FlowX_V *100 ,UserDataToPC);
-    FloatToUnsignedchar(7,RT_Info.FlowY_V *100 ,UserDataToPC);
+    FloatToUnsignedchar(3,RT_Info.ratePitch *100 ,UserDataToPC);
+    FloatToUnsignedchar(7,RT_Info.rateRoll *100 ,UserDataToPC);
     FloatToUnsignedchar(11,RT_Info.accZaxis *100 ,UserDataToPC);
     scib_msg(UserDataToPC);
 }

@@ -166,17 +166,17 @@ void Calculate_Thrust(){
     }
     else if(FlightControl.DroneMode==Drone_Mode_Pitch || FlightControl.DroneMode==Drone_Mode_RatePitch)
     {
-        Throttle_Info.M1 = - UAVThrust.PitchThrust + UAVThrust.BasicThrust;
-        Throttle_Info.M2 = + UAVThrust.PitchThrust + UAVThrust.BasicThrust;
-        Throttle_Info.M3 = + UAVThrust.PitchThrust + UAVThrust.BasicThrust;
-        Throttle_Info.M4 = - UAVThrust.PitchThrust + UAVThrust.BasicThrust;
+        Throttle_Info.M1 = - UAVThrust.PitchThrust * 14.1 / RT_Info.batteryVoltage + UAVThrust.BasicThrust;
+        Throttle_Info.M2 = + UAVThrust.PitchThrust * 14.1 / RT_Info.batteryVoltage + UAVThrust.BasicThrust;
+        Throttle_Info.M3 = + UAVThrust.PitchThrust * 14.1 / RT_Info.batteryVoltage + UAVThrust.BasicThrust;
+        Throttle_Info.M4 = - UAVThrust.PitchThrust * 14.1 / RT_Info.batteryVoltage + UAVThrust.BasicThrust;
     }
     else if(FlightControl.DroneMode==Drone_Mode_Roll || FlightControl.DroneMode==Drone_Mode_RateRoll)
     {
-        Throttle_Info.M1 = - UAVThrust.RollThrust + UAVThrust.BasicThrust;
-        Throttle_Info.M2 = - UAVThrust.RollThrust + UAVThrust.BasicThrust;
-        Throttle_Info.M3 = + UAVThrust.RollThrust + UAVThrust.BasicThrust;
-        Throttle_Info.M4 = + UAVThrust.RollThrust + UAVThrust.BasicThrust;
+        Throttle_Info.M1 = - UAVThrust.RollThrust * 14.1 / RT_Info.batteryVoltage + UAVThrust.BasicThrust;
+        Throttle_Info.M2 = - UAVThrust.RollThrust * 14.1 / RT_Info.batteryVoltage + UAVThrust.BasicThrust;
+        Throttle_Info.M3 = + UAVThrust.RollThrust * 14.1 / RT_Info.batteryVoltage + UAVThrust.BasicThrust;
+        Throttle_Info.M4 = + UAVThrust.RollThrust * 14.1 / RT_Info.batteryVoltage + UAVThrust.BasicThrust;
     }
 
     if(Throttle_Info.M1 > 900)  Throttle_Info.M1=900;
