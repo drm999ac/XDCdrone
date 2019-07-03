@@ -145,8 +145,6 @@ void IMU_getInfo()
     RT_Info.Yaw = atan2(2.0*q1q2 + 2.0*q0q3, -2.0*q2q2 - 2.0*q3q3 + 1) * 180/PI; // yaw
 
     //速度估算
-    RT_Info.EstiX += RT_Info.AccX*0.002;
-    RT_Info.EstiY += RT_Info.AccY*0.002;
-    RT_Info.EstiZ += RT_Info.AccZ*0.002;
+
 }
 

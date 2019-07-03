@@ -491,7 +491,9 @@ static  void  App_TaskCombine (void *p_arg){
         }
         else if(Fly_Mode == Data_SpeedSetimate)
         {
-
+            RT_Info.EstiX += RT_Info.AccX*0.002;
+            RT_Info.EstiY += RT_Info.AccY*0.002;
+            RT_Info.EstiZ += RT_Info.AccZ*0.002;
 
         }
 
