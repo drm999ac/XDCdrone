@@ -88,6 +88,15 @@ void Process_VisionData(Uint16 *VisionData){
             Fly_Mode = Data_MultiBlock;               //定点巡线
 
         }
+        else if(VisionData[2]==0x60)
+        {
+            tmp = (int)VisionData[3] - 100;
+            Sensor_Info.VectX = tmp;
+            tmp = (int)VisionData[4] - 100;
+            Sensor_Info.VectY = tmp;
+
+            Fly_Mode = Data_SpeedSetimate;               //定点巡线
+        }
 
     }
 

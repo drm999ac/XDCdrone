@@ -72,6 +72,6 @@ extern KalmanFilter XAxis,YAxis,ZAxis,Barometer;
 
 
 // #define Drone_Wheelbase_330
-// #define LaunchPad_PinConfig
+#define LaunchPad_PinConfig
 
 #endif /* TASK_H_ */

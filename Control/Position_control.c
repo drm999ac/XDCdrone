@@ -248,6 +248,17 @@ void Position_control(unsigned char Data_flag,float Climb,float Decline){
 
                 }
                 break;
+            case 7:
+                if(controlCnt ==2)
+                {
+
+                    Target_Info.Pitch =  Limits_data( - PID_Control(&PID_ParaInfo.FlowVelX,&OriginalVelX,Sensor_Info.VectX / 100*0.01,
+                                                                                         RT_Info.EstiX,0.005,3,lowpass_filter) , 6 , -6 );
+                    Target_Info.Roll =  Limits_data( - PID_Control(&PID_ParaInfo.FlowVelY,&OriginalVelX,Sensor_Info.VectY / 100*0.01,
+                                                                                         RT_Info.EstiY,0.005,3,lowpass_filter) , 6 , -6 );
+
+                }
+                break;
             default:
 
                 break;

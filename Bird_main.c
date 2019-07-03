@@ -489,6 +489,11 @@ static  void  App_TaskCombine (void *p_arg){
             RT_Info.PointY_V = YAxis.Axis_Vel;
 
         }
+        else if(Fly_Mode == Data_SpeedSetimate)
+        {
+
+
+        }
 
 
 //        OSTimeDly(5);
@@ -614,7 +619,7 @@ static  void  App_TaskDataToPC (void *p_arg){
 
 //        unsigned char bluetooth_bound[8]="AT+BAUD8";
 //        scib_msg(bluetooth_bound);
-        OSTimeDlyHMSM(0,0,0,100);
+        OSTimeDlyHMSM(0,0,0,200);
     }
 }
 

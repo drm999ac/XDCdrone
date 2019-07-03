@@ -48,6 +48,7 @@ typedef enum{
     Data_Follow = 4,
     Data_PointAngle = 5,
     Data_MultiBlock = 6,
+    Data_SpeedSetimate = 7,
 }FlyMode;
 
 typedef struct{
@@ -276,6 +277,9 @@ typedef struct
     float accXaxis;
     float accYaxis;
     float accZaxis;
+    float EstiX;
+    float EstiY;
+    float EstiZ;
     float Height;
     float Height_V;
     float Barometer;      //气压计数据
@@ -316,6 +320,9 @@ typedef struct{
     float VIO_Xaxis;
     float VIO_Yaxis;
     float VIO_Zaxis;
+    float VectX;
+    float VectY;
+    float VectZ;
 }SensorData;
 
 //float 联合体
