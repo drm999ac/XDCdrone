@@ -95,6 +95,10 @@ void Process_VisionData(Uint16 *VisionData){
             tmp = (int)VisionData[4] - 100;
             Sensor_Info.VectY = tmp;
 
+#ifndef TESTMODE
+            Sensor_Info.US100_Zaxis = UnsignedcharToFloat(VisionData,11) * cos(RT_Info.Pitch * 0.0174f) * cos(RT_Info.Roll * 0.0174f);
+#endif
+
             Fly_Mode = Data_SpeedSetimate;               //定点巡线
         }
 

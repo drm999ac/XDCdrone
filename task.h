@@ -31,6 +31,7 @@
 #include "MPU6500.h"
 #include "LSM303D.h"
 #include "I2C.h"
+#include "US100.h"
 #include "MS5611.h"
 #include "MahonyAHRS.h"
 #include "DronePara.h"
@@ -73,5 +74,6 @@ extern KalmanFilter XAxis,YAxis,ZAxis,Barometer;
 
 // #define Drone_Wheelbase_330
 // #define LaunchPad_PinConfig
+# define TESTMODE
 
 #endif /* TASK_H_ */

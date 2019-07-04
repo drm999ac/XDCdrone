@@ -46,13 +46,15 @@
 #define  APP_CFG_TASK_IMU_PRIO                       4u
 #define  APP_CFG_TASK_Attitude_PRIO                  5u
 #define  APP_CFG_TASK_Combine_PRIO                   6u
-#define  APP_CFG_TASK_Position_PRIO                  7u
-#define  APP_CFG_TASK_ProcessVisionData_PRIO         10u
-#define  APP_CFG_TASK_MS5611_PRIO        9u
-#define  APP_CFG_TASK_ProcessPCData_PRIO             8u
-#define  APP_CFG_TASK_DataToPC_PRIO                  11u
-#define  APP_CFG_TASK_Battery_PRIO                   12u
-#define  APP_CFG_TASK_LED_PRIO                       13u
+#define  APP_CFG_TASK_Ultra_PRIO                     7u
+#define  APP_CFG_TASK_Position_PRIO                  8u
+#define  APP_CFG_TASK_ProcessPCData_PRIO             9u
+#define  APP_CFG_TASK_MS5611_PRIO                    10u
+#define  APP_CFG_TASK_ProcessVisionData_PRIO         11u
+#define  APP_CFG_TASK_DataToPC_PRIO                  12u
+#define  APP_CFG_TASK_Battery_PRIO                   13u
+#define  APP_CFG_TASK_LED_PRIO                       14u
+
 
 
 /*

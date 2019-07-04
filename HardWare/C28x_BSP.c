@@ -476,6 +476,94 @@ void C28x_BSP_Scic_Init(){
 }
 
 
+
+/*
+ * SCID ≥ı ºªØ 115200 baund @ LSPCLK = 50Mhz
+ *
+ * void scid_fifo_init(void);
+ *
+ * void scid_msg(unsigned char * msg);
+ *
+ * interrupt void scidRxFifoIsr(void);
+ *
+ * void C28x_BSP_Scid_Init(void);
+ *
+ */
+
+//
+// scid_fifo_init - Configure SCIB FIFO
+//
+void scid_fifo_init()
+{
+   ScidRegs.SCICCR.all = 0x0007;      // 1 stop bit,  No loopback
+                                      // No parity,8 char bits,
+                                      // async mode, idle-line protocol
+   ScidRegs.SCICTL1.all = 0x0003;     // enable TX, RX, internal SCICLK,
+                                      // Disable RX ERR, SLEEP, TXWAKE
+   ScidRegs.SCICTL2.bit.TXINTENA = 1;
+   ScidRegs.SCICTL2.bit.RXBKINTENA = 1;
+   ScidRegs.SCIHBAUD.all = 0x0000;    //115200 baund @ LSPCLK = 50Mhz
+   ScidRegs.SCILBAUD.all = 0x0035;
+   ScidRegs.SCICCR.bit.LOOPBKENA = 0; // Enable loop back
+   ScidRegs.SCIFFTX.all = 0xC040;
+   ScidRegs.SCIFFRX.all = 0x0030;
+   ScidRegs.SCIFFCT.all = 0x00;
+
+   ScidRegs.SCICTL1.all = 0x0023;     // Relinquish SCI from Reset
+   ScidRegs.SCIFFTX.bit.TXFIFORESET = 1;
+   ScidRegs.SCIFFRX.bit.RXFIFORESET = 1;
+}
+
+
+void scid_msg(unsigned char * msg)
+{
+    int i;
+    while (ScidRegs.SCIFFTX.bit.TXFFST != 0) {}
+    for (i = 0;i < 16;i ++){
+        ScidRegs.SCITXBUF.all = msg[i];
+    }
+}
+
+//
+// scibRxFifoIsr - SCIB Receive FIFO ISR
+//
+
+interrupt void scidRxFifoIsr(void)
+{
+    Uint16 i;
+    for(i=0;i<2;i++)
+    {
+        ReciveUltrasonic[i]=ScidRegs.SCIRXBUF.all;  // Read data
+    }
+
+    ScidRegs.SCIFFRX.bit.RXFFOVRCLR=1;   // Clear Overflow flag
+    ScidRegs.SCIFFRX.bit.RXFFINTCLR=1;   // Clear Interrupt flag
+
+    PieCtrlRegs.PIEACK.all|=0x100;       // Issue PIE ack
+    RT_Info.Height = ReciveUltrasonic[1]*256 + ReciveUltrasonic[0];
+    // OSSemPost(&ProcessUltrasonic_proc);
+}
+
+void C28x_BSP_Scid_Init(){
+
+    GPIO_SetupPinMux(46, GPIO_MUX_CPU1, 6);
+    GPIO_SetupPinOptions(46, GPIO_INPUT, GPIO_PUSHPULL);
+    GPIO_SetupPinMux(47, GPIO_MUX_CPU1, 6);
+    GPIO_SetupPinOptions(47, GPIO_OUTPUT, GPIO_ASYNC);
+
+    EALLOW;  // This is needed to write to EALLOW protected registers
+    PieVectTable.SCID_RX_INT = &scidRxFifoIsr;
+    EDIS;    // This is needed to disable write to EALLOW protected registers
+
+    scid_fifo_init();   // Init SCI-B
+
+    IER |= M_INT9;
+    PieCtrlRegs.PIECTRL.bit.ENPIE = 1;   // Enable the PIE block
+    PieCtrlRegs.PIEIER9.bit.INTx7=1;     // PIE Group 9, INT3
+    EINT;
+    ERTM;  // Enable Global realtime interrupt DBGM
+}
+
 Uint32 Receive_PPM_In[9];
 Uint16 CH_State = 0;
 __interrupt void Enhanced_Capture1_ISR(void)

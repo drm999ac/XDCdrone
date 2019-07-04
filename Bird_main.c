@@ -56,7 +56,8 @@ CPU_STK_SIZE  App_TaskDataToPCStk[APP_CFG_TASK_STK_SIZE];
 CPU_STK_SIZE  App_TaskBatteryStk[APP_CFG_TASK_STK_SIZE];
 /* LED Task's stack.                                 */
 CPU_STK_SIZE  App_TaskLEDStk[APP_CFG_TASK_STK_SIZE];
-
+/* US100 Task's stack.                                 */
+CPU_STK_SIZE  App_TaskUltraStk[APP_CFG_TASK_STK_SIZE];
 
 /*
 *********************************************************************************************************
@@ -65,26 +66,41 @@ CPU_STK_SIZE  App_TaskLEDStk[APP_CFG_TASK_STK_SIZE];
 */
 /* Start Task */
 static  void  App_TaskStart(void  *p_arg);
+
 /* IMU Task */
 static  void  App_TaskIMU(void  *p_arg);
+
 /* Attitude Task */
 static  void  App_TaskAttitude(void  *p_arg);
+
 /* Position Task */
 static  void  App_TaskPosition(void  *p_arg);
+
 /* Combine Task */
 static  void  App_TaskCombine(void  *p_arg);
+
 /* ProcessVisionData Task */
 static  void  App_TaskProcessVisionData(void  *p_arg);
+
 /* ProcessReserveData Task */
 static  void  App_TaskMS5611(void  *p_arg);
+
 /* ProcessPCData Task */
 static  void  App_TaskProcessPCData(void  *p_arg);
+
 /* DataToPC Task */
 static  void  App_TaskDataToPC(void  *p_arg);
+
 /* ADC Task */
 static  void  App_TaskBattery(void *p_arg);
+
 /* LED Task */
 static  void  App_TaskLED(void  *p_arg);
+
+#ifndef TESTMODE
+/* US100 Task */
+static  void  App_TaskUltra(void  *p_arg);
+#endif
 
 int main(void){
 /* Initialize the CPU and Board.                        */
@@ -238,6 +254,16 @@ static  void  App_TaskStart (void *p_arg)
                     (INT8U    )APP_CFG_TASK_LED_PRIO,
                     (INT16U   )APP_CFG_TASK_LED_PRIO,
                     (CPU_STK *)&App_TaskLEDStk[APP_CFG_TASK_STK_SIZE - 1u],
+                    (INT32U   )APP_CFG_TASK_STK_SIZE,
+                    (void    *)0,
+                    (INT16U   )(OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR));
+    /* US100 Task.                                        */
+    OSTaskCreateExt(App_TaskUltra,
+                    (void    *)0,
+                    (CPU_STK *)&App_TaskUltraStk[0],
+                    (INT8U    )APP_CFG_TASK_Ultra_PRIO,
+                    (INT16U   )APP_CFG_TASK_Ultra_PRIO,
+                    (CPU_STK *)&App_TaskUltraStk[APP_CFG_TASK_STK_SIZE - 1u],
                     (INT32U   )APP_CFG_TASK_STK_SIZE,
                     (void    *)0,
                     (INT16U   )(OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR));
@@ -503,7 +529,7 @@ static  void  App_TaskCombine (void *p_arg){
     }
 }
 
-
+#ifndef TESTMODE
 /*
 *********************************************************************************************************
 *                                            App_TaskProcessVisionData
@@ -530,6 +556,8 @@ static  void  App_TaskProcessVisionData (void *p_arg){
         Process_VisionData(ReciveVisionData);
     }
 }
+#endif
+
 /*
 *********************************************************************************************************
 *                                            App_TaskProcessReserveData
@@ -692,4 +720,35 @@ static  void  App_TaskLED (void *p_arg)
         OSTimeDlyHMSM(0,0,0,500);
     }
 }
+
+
+#ifdef TESTMODE
+/*
+*********************************************************************************************************
+*                                            App_TaskUltra
+*
+* Description : Utrasonic task
+*
+* Argument(s) : p_arg       the argument passed by 'OSTaskCreateExt()'.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : This is a task.
+*********************************************************************************************************
+*/
+
+OS_EVENT ProcessUltrasonic_proc;//信号量
+Uint16 ReciveUltrasonic[2];
+static  void  App_TaskUltra (void *p_arg)
+{
+   /* Prevent compiler warning for not using 'p_arg'       */
+   (void)&p_arg;
+   /* Task body, always written as an infinite loop.       */
+    while (DEF_TRUE) {
+        RequireUS100data();
+        OSTimeDlyHMSM(0,0,0,20);
+    }
+}
+#endif
+
 

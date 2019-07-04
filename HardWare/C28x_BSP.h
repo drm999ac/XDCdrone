@@ -42,7 +42,8 @@ extern OS_EVENT ProcessVisionData_proc;//信号量
 extern Uint16 ReciveVisionData[16];
 extern OS_EVENT ProcessReserveData_proc;//信号量
 extern Uint16 ReciveReserveData[16];
-
+extern OS_EVENT ProcessUltrasonic_proc;//信号量
+extern Uint16 ReciveUltrasonic[2];
 
 // Function function
 void spi_xmit(Uint16 a);

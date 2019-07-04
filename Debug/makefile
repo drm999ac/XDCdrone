@@ -4,7 +4,7 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := D:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS
+CG_TOOL_ROOT := F:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
@@ -45,6 +45,7 @@ ORDERED_OBJS += \
 "./Sensor/LSM303D.obj" \
 "./Sensor/MPU6500.obj" \
 "./Sensor/MS5611.obj" \
+"./Sensor/US100.obj" \
 "./uC-CPU/C28x/CCS/cpu_a.obj" \
 "./uC-CPU/C28x/CCS/cpu_c.obj" \
 "./uC-CPU/cpu_core.obj" \
@@ -223,14 +224,14 @@ all: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 BirdFlight_V3.0.5.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"D:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -Ooff --opt_for_speed=0 --fp_mode=relaxed --fp_reassoc=on --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number -z -m"BirdFlight_V3.0.5.map" --stack_size=0x400 --warn_sections -i"D:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/lib" -i"D:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="BirdFlight_V3.0.5_linkInfo.xml" --rom_model -o "BirdFlight_V3.0.5.out" $(ORDERED_OBJS)
+	"F:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -Ooff --opt_for_speed=0 --fp_mode=relaxed --fp_reassoc=on --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number -z -m"BirdFlight_V3.0.5.map" --stack_size=0x400 --warn_sections -i"F:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/lib" -i"F:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="BirdFlight_V3.0.5_linkInfo.xml" --rom_model -o "BirdFlight_V3.0.5.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 BirdFlight_V3.0.5.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: C2000 Hex Utility'
-	"D:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/bin/hex2000"  -o "BirdFlight_V3.0.5.hex" $(EXE_OUTPUTS__QUOTED)
+	"F:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/bin/hex2000"  -o "BirdFlight_V3.0.5.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
@@ -238,9 +239,9 @@ BirdFlight_V3.0.5.hex: $(EXE_OUTPUTS)
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
 	-$(RM) "Bird_main.obj" "AlgorithmLibrary\Calibrate.obj" "AlgorithmLibrary\MahonyAHRS.obj" "AlgorithmLibrary\PositionEstimation.obj" "AlgorithmLibrary\SimpleDigitalFiltering.obj" "Control\Attitude_control.obj" "Control\PID_Control.obj" "Control\Position_control.obj" "Driver\source\F2837xD_Adc.obj" "Driver\source\F2837xD_CodeStartBranch.obj" "Driver\source\F2837xD_CpuTimers.obj" "Driver\source\F2837xD_DefaultISR.obj" "Driver\source\F2837xD_ECap.obj" "Driver\source\F2837xD_EPwm.obj" "Driver\source\F2837xD_GlobalVariableDefs.obj" "Driver\source\F2837xD_Gpio.obj" "Driver\source\F2837xD_PieCtrl.obj" "Driver\source\F2837xD_PieVect.obj" "Driver\source\F2837xD_Spi.obj" "Driver\source\F2837xD_SysCtrl.obj" "Driver\source\F2837xD_usDelay.obj" "FLASH_API\Fapi_UserDefinedFunctions.obj" "FLASH_API\FlashAPI.obj" "HardWare\C28x_BSP.obj" "HardWare\C28x_CPU.obj" "Parameter\DataToPC.obj" "Parameter\ProcessPCData.obj" "Parameter\ProcessVisionData.obj" "Sensor\ADC_Battery.obj" "Sensor\AHRS_Hardware.obj" "Sensor\Bluetooth.obj" 
-	-$(RM) "Sensor\I2C.obj" "Sensor\LSM303D.obj" "Sensor\MPU6500.obj" "Sensor\MS5611.obj" "uC-CPU\C28x\CCS\cpu_a.obj" "uC-CPU\C28x\CCS\cpu_c.obj" "uC-CPU\cpu_core.obj" "uC-LIB\lib_ascii.obj" "uC-LIB\lib_math.obj" "uC-LIB\lib_mem.obj" "uC-LIB\lib_str.obj" "uCOS-II\Ports\C28x\Generic\CCS\os_cpu_a.obj" "uCOS-II\Ports\C28x\Generic\CCS\os_cpu_c.obj" "uCOS-II\Ports\C28x\Generic\CCS\os_cpu_i.obj" "uCOS-II\Ports\C28x\Generic\CCS\os_dbg.obj" "uCOS-II\Source\os_core.obj" "uCOS-II\Source\os_flag.obj" "uCOS-II\Source\os_mbox.obj" "uCOS-II\Source\os_mem.obj" "uCOS-II\Source\os_mutex.obj" "uCOS-II\Source\os_q.obj" "uCOS-II\Source\os_sem.obj" "uCOS-II\Source\os_task.obj" "uCOS-II\Source\os_time.obj" "uCOS-II\Source\os_tmr.obj" 
-	-$(RM) "Bird_main.d" "AlgorithmLibrary\Calibrate.d" "AlgorithmLibrary\MahonyAHRS.d" "AlgorithmLibrary\PositionEstimation.d" "AlgorithmLibrary\SimpleDigitalFiltering.d" "Control\Attitude_control.d" "Control\PID_Control.d" "Control\Position_control.d" "Driver\source\F2837xD_Adc.d" "Driver\source\F2837xD_CpuTimers.d" "Driver\source\F2837xD_DefaultISR.d" "Driver\source\F2837xD_ECap.d" "Driver\source\F2837xD_EPwm.d" "Driver\source\F2837xD_GlobalVariableDefs.d" "Driver\source\F2837xD_Gpio.d" "Driver\source\F2837xD_PieCtrl.d" "Driver\source\F2837xD_PieVect.d" "Driver\source\F2837xD_Spi.d" "Driver\source\F2837xD_SysCtrl.d" "FLASH_API\Fapi_UserDefinedFunctions.d" "FLASH_API\FlashAPI.d" "HardWare\C28x_BSP.d" "HardWare\C28x_CPU.d" "Parameter\DataToPC.d" "Parameter\ProcessPCData.d" "Parameter\ProcessVisionData.d" "Sensor\ADC_Battery.d" "Sensor\AHRS_Hardware.d" "Sensor\Bluetooth.d" "Sensor\I2C.d" "Sensor\LSM303D.d" "Sensor\MPU6500.d" "Sensor\MS5611.d" "uC-CPU\C28x\CCS\cpu_c.d" "uC-CPU\cpu_core.d" "uC-LIB\lib_ascii.d" 
-	-$(RM) "uC-LIB\lib_math.d" "uC-LIB\lib_mem.d" "uC-LIB\lib_str.d" "uCOS-II\Ports\C28x\Generic\CCS\os_cpu_c.d" "uCOS-II\Ports\C28x\Generic\CCS\os_dbg.d" "uCOS-II\Source\os_core.d" "uCOS-II\Source\os_flag.d" "uCOS-II\Source\os_mbox.d" "uCOS-II\Source\os_mem.d" "uCOS-II\Source\os_mutex.d" "uCOS-II\Source\os_q.d" "uCOS-II\Source\os_sem.d" "uCOS-II\Source\os_task.d" "uCOS-II\Source\os_time.d" "uCOS-II\Source\os_tmr.d" 
+	-$(RM) "Sensor\I2C.obj" "Sensor\LSM303D.obj" "Sensor\MPU6500.obj" "Sensor\MS5611.obj" "Sensor\US100.obj" "uC-CPU\C28x\CCS\cpu_a.obj" "uC-CPU\C28x\CCS\cpu_c.obj" "uC-CPU\cpu_core.obj" "uC-LIB\lib_ascii.obj" "uC-LIB\lib_math.obj" "uC-LIB\lib_mem.obj" "uC-LIB\lib_str.obj" "uCOS-II\Ports\C28x\Generic\CCS\os_cpu_a.obj" "uCOS-II\Ports\C28x\Generic\CCS\os_cpu_c.obj" "uCOS-II\Ports\C28x\Generic\CCS\os_cpu_i.obj" "uCOS-II\Ports\C28x\Generic\CCS\os_dbg.obj" "uCOS-II\Source\os_core.obj" "uCOS-II\Source\os_flag.obj" "uCOS-II\Source\os_mbox.obj" "uCOS-II\Source\os_mem.obj" "uCOS-II\Source\os_mutex.obj" "uCOS-II\Source\os_q.obj" "uCOS-II\Source\os_sem.obj" "uCOS-II\Source\os_task.obj" "uCOS-II\Source\os_time.obj" "uCOS-II\Source\os_tmr.obj" 
+	-$(RM) "Bird_main.d" "AlgorithmLibrary\Calibrate.d" "AlgorithmLibrary\MahonyAHRS.d" "AlgorithmLibrary\PositionEstimation.d" "AlgorithmLibrary\SimpleDigitalFiltering.d" "Control\Attitude_control.d" "Control\PID_Control.d" "Control\Position_control.d" "Driver\source\F2837xD_Adc.d" "Driver\source\F2837xD_CpuTimers.d" "Driver\source\F2837xD_DefaultISR.d" "Driver\source\F2837xD_ECap.d" "Driver\source\F2837xD_EPwm.d" "Driver\source\F2837xD_GlobalVariableDefs.d" "Driver\source\F2837xD_Gpio.d" "Driver\source\F2837xD_PieCtrl.d" "Driver\source\F2837xD_PieVect.d" "Driver\source\F2837xD_Spi.d" "Driver\source\F2837xD_SysCtrl.d" "FLASH_API\Fapi_UserDefinedFunctions.d" "FLASH_API\FlashAPI.d" "HardWare\C28x_BSP.d" "HardWare\C28x_CPU.d" "Parameter\DataToPC.d" "Parameter\ProcessPCData.d" "Parameter\ProcessVisionData.d" "Sensor\ADC_Battery.d" "Sensor\AHRS_Hardware.d" "Sensor\Bluetooth.d" "Sensor\I2C.d" "Sensor\LSM303D.d" "Sensor\MPU6500.d" "Sensor\MS5611.d" "Sensor\US100.d" "uC-CPU\C28x\CCS\cpu_c.d" "uC-CPU\cpu_core.d" 
+	-$(RM) "uC-LIB\lib_ascii.d" "uC-LIB\lib_math.d" "uC-LIB\lib_mem.d" "uC-LIB\lib_str.d" "uCOS-II\Ports\C28x\Generic\CCS\os_cpu_c.d" "uCOS-II\Ports\C28x\Generic\CCS\os_dbg.d" "uCOS-II\Source\os_core.d" "uCOS-II\Source\os_flag.d" "uCOS-II\Source\os_mbox.d" "uCOS-II\Source\os_mem.d" "uCOS-II\Source\os_mutex.d" "uCOS-II\Source\os_q.d" "uCOS-II\Source\os_sem.d" "uCOS-II\Source\os_task.d" "uCOS-II\Source\os_time.d" "uCOS-II\Source\os_tmr.d" 
 	-$(RM) "Driver\source\F2837xD_CodeStartBranch.d" "Driver\source\F2837xD_usDelay.d" "uC-CPU\C28x\CCS\cpu_a.d" "uCOS-II\Ports\C28x\Generic\CCS\os_cpu_a.d" "uCOS-II\Ports\C28x\Generic\CCS\os_cpu_i.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

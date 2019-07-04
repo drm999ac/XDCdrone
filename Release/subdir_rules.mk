@@ -5,10 +5,10 @@
 SHELL = cmd.exe
 
 # Each subdirectory must supply rules for building sources it contributes
-Bird_main.obj: ../Bird_main.c $(GEN_OPTS) | $(GEN_HDRS)
+%.obj: ../%.c $(GEN_OPTS) | $(GEN_FILES)
 	@echo 'Building file: "$<"'
 	@echo 'Invoking: C2000 Compiler'
-	"D:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/bin/cl2000" -v28 -ml -mt -O2 --include_path="F:/project/ti/C2000/BirdFlight_V3.0.5" --include_path="D:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/include" --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="Bird_main.d_raw" $(GEN_OPTS__FLAG) "$<"
+	"F:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/bin/cl2000" -v28 -ml -mt -O2 --include_path="H:/project/ti/BridFlight_V3.0.5" --include_path="F:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.4.LTS/include" --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="$(basename $(<F)).d_raw" $(GEN_OPTS__FLAG) "$<"
 	@echo 'Finished building: "$<"'
 	@echo ' '
 
